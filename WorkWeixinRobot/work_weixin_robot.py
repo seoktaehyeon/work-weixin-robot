@@ -130,7 +130,7 @@ class WWXRobot(object):
     def read_file(file_path):
         if os.path.exists(file_path):
             with open(file_path, 'r') as f:
-                return f.read(file_path)
+                return f.read()
         else:
             return ""
 
@@ -165,7 +165,12 @@ def main():
                 _args['file'] = arg
         print('Welcome to use Work WeiXin Robot tool')
         rbt = WWXRobot(key=_args.get('key'))
-        print('Try to send %s message' % _args.get('type'))
+        print('Try to send == %s == message' % _args.get('type').upper())
+        if _args.get('data'):
+            print('Message Content:\n%s' % _args.get('data'))
+        else:
+            with open(_args.get('file'), 'r') as f:
+                print('Message Content:\n%s' % f.read())
         rbt.sender(msg_type=_args.get('type'), msg_data=_args.get('data'), msg_file_path=_args.get('file'))
     except getopt.GetoptError:
         print(help_doc)
