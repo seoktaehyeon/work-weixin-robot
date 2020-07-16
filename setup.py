@@ -5,7 +5,7 @@ from setuptools import find_packages, setup
 import os
 
 
-URL = 'https://github.com/seoktaehyeon/work-weixin-robot',
+URL = 'https://github.com/seoktaehyeon/work-weixin-robot'
 NAME = 'WorkWeixinRobot'
 VERSION = '0.2.0'
 DESCRIPTION = '企业微信机器人'
