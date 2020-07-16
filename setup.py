@@ -7,7 +7,7 @@ import os
 
 URL = 'https://github.com/seoktaehyeon/work-weixin-robot',
 NAME = 'WorkWeixinRobot'
-VERSION = '0.1.0'
+VERSION = '0.2.0'
 DESCRIPTION = '企业微信机器人'
 if os.path.exists('README.md'):
     with open('README.md', encoding='utf-8') as f:
@@ -22,7 +22,9 @@ PLATFORMS = [
 ]
 REQUIRES = [
     'requests',
+    'PyYAML',
 ]
+CONSOLE_SCRIPTS = 'wwx-robot = WorkWeixinRobot.work_weixin_robot:main'
 
 setup(
     name=NAME,
@@ -40,5 +42,8 @@ setup(
     packages=find_packages(),
     platforms=PLATFORMS,
     url=URL,
-    install_requires=REQUIRES
+    install_requires=REQUIRES,
+    entry_points={
+        'console_scripts': [CONSOLE_SCRIPTS],
+    }
 )

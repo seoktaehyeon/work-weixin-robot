@@ -5,6 +5,29 @@
 import requests
 import base64
 import hashlib
+import os
+import yaml
+import sys
+import getopt
+
+
+help_doc = """Usage: wwx-robot -k <robot_key> -t <msg_type> -d <msg_data> -f <msg_file_path>
+Option:
+    -k      Robot key
+    -t      Message type
+            text, markdown, image, news
+    -d      Message data
+    -f      Message file
+            It should be text file if message type is text
+            It should be markdown file if message type is markdown
+            It should be image file if message type is image
+            It should be YAML file if message type is news
+Example:
+    wwx-robot -k xxxx -t text -d "Hello world"
+    wwx-robot -k xxxx -t markdown -f ./hello.md
+    wwx-robot -k xxxx -t image -f ./picture.png
+    wwx-robot -k xxxx -t news -f ./articles.yaml
+"""
 
 
 class WWXRobot(object):
@@ -103,7 +126,52 @@ class WWXRobot(object):
         }
         self._send(body)
 
+    @staticmethod
+    def read_file(file_path):
+        if os.path.exists(file_path):
+            with open(file_path, 'r') as f:
+                return f.read(file_path)
+        else:
+            return ""
+
+    def sender(self, msg_type: str = "text", msg_data=None, msg_file_path=None):
+        if msg_type == "text":
+            self.send_text(msg_data or self.read_file(msg_file_path))
+        elif msg_type == "markdown":
+            self.send_markdown(msg_data or self.read_file(msg_file_path))
+        elif msg_type == "image":
+            if os.path.exists(msg_file_path):
+                self.send_image(local_file=msg_file_path)
+            else:
+                self.send_image(remote_url=msg_file_path)
+        elif msg_type == "news":
+            self.send_news(yaml.full_load(self.read_file(msg_file_path)))
+
+
+def main():
+    if len(sys.argv[1:]) == 0:
+        print(help_doc)
+        exit(1)
+    try:
+        _args = dict()
+        for opt, arg in getopt.getopt(sys.argv[1:], "k:t:d:f:")[0]:
+            if opt == '-k':
+                _args['key'] = arg
+            elif opt == '-t':
+                _args['type'] = arg
+            elif opt == '-d':
+                _args['data'] = arg
+            elif opt == '-f':
+                _args['file'] = arg
+        print('Welcome to use Work WeiXin Robot tool')
+        rbt = WWXRobot(key=_args.get('key'))
+        print('Try to send %s message' % _args.get('type'))
+        rbt.sender(msg_type=_args.get('type'), msg_data=_args.get('data'), msg_file_path=_args.get('file'))
+    except getopt.GetoptError:
+        print(help_doc)
+        exit(1)
+    print('Complete send message')
+
 
 if __name__ == '__main__':
-    print('This is the scripts for QiYe WeiXin Robot')
-
+    print('This is the scripts of Work Weixin Robot sender')
