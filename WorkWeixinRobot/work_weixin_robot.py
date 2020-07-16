@@ -169,8 +169,11 @@ def main():
         if _args.get('data'):
             print('Message Content:\n%s' % _args.get('data'))
         else:
-            with open(_args.get('file'), 'r') as f:
-                print('Message Content:\n%s' % f.read())
+            if _args.get('type') == 'image':
+                print('Message Content: \n%s' % _args.get('file'))
+            else:
+                with open(_args.get('file'), 'r') as f:
+                    print('Message Content:\n%s' % f.read())
         rbt.sender(msg_type=_args.get('type'), msg_data=_args.get('data'), msg_file_path=_args.get('file'))
     except getopt.GetoptError:
         print(help_doc)
