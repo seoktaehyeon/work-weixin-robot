@@ -7,7 +7,7 @@ import os
 
 URL = 'https://github.com/seoktaehyeon/work-weixin-robot'
 NAME = 'WorkWeixinRobot'
-VERSION = '1.0.0'
+VERSION = '1.0.1'
 DESCRIPTION = '企业微信群机器人'
 if os.path.exists('README.md'):
     with open('README.md', encoding='utf-8') as f:

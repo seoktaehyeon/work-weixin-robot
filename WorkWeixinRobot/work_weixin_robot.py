@@ -15,18 +15,25 @@ help_doc = """Usage: wwx-robot -k <robot_key> -t <msg_type> -d <msg_data> -f <ms
 Option:
     -k      Robot key
     -t      Message type
-            text, markdown, image, news
+              text, markdown, image, news
     -d      Message data
     -f      Message file
-            It should be text file if message type is text
-            It should be markdown file if message type is markdown
-            It should be image file if message type is image
-            It should be YAML file if message type is news
+              +--------------+--------------+
+              | Message Type |  File Type   |
+              +--------------+--------------+
+              |     text     |     text     |
+              +--------------+--------------+
+              |   markdown   |   markdown   |
+              +--------------+--------------+
+              |     image    |    jpg,png   |
+              +--------------+--------------+
+              |     news     |     yaml     |
+              +--------------+--------------+
 Example:
     wwx-robot -k xxxx -t text -d "Hello world"
-    wwx-robot -k xxxx -t markdown -f ./hello.md
-    wwx-robot -k xxxx -t image -f ./picture.png
-    wwx-robot -k xxxx -t news -f ./articles.yaml
+    wwx-robot -k xxxx -t markdown -f demo/help.md
+    wwx-robot -k xxxx -t image -f demo/picture.jpg
+    wwx-robot -k xxxx -t news -f demo/articles.yaml
 """
 
 
@@ -163,9 +170,17 @@ def main():
                 _args['data'] = arg
             elif opt == '-f':
                 _args['file'] = arg
+        if not _args.get('key') or not _args.get('type'):
+            print('Robot key and message type is required')
+            print(help_doc)
+            exit(1)
+        if not _args.get('data') and not _args.get('file'):
+            print('Message data or message file is required')
+            print(help_doc)
+            exit(1)
         print('Welcome to use Work WeiXin Robot tool')
         rbt = WWXRobot(key=_args.get('key'))
-        print('Try to send == %s == message' % _args.get('type').upper())
+        print('Try to send == %s == type message' % _args.get('type').upper())
         if _args.get('data'):
             print('Message Content:\n%s' % _args.get('data'))
         else:
@@ -178,7 +193,7 @@ def main():
     except getopt.GetoptError:
         print(help_doc)
         exit(1)
-    print('Complete send message')
+    print('Complete to send message')
 
 
 if __name__ == '__main__':
