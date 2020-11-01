@@ -29,9 +29,9 @@ Option:
             It should be YAML file if message type is news
 Example:
     wwx-robot -k xxxx -t text -d "Hello world"
-    wwx-robot -k xxxx -t markdown -f ./hello.md
-    wwx-robot -k xxxx -t image -f ./picture.png
-    wwx-robot -k xxxx -t news -f ./articles.yaml
+    wwx-robot -k xxxx -t markdown -f demo/help.md
+    wwx-robot -k xxxx -t image -f demo/picture.jpg
+    wwx-robot -k xxxx -t news -f demo/articles.yaml
 
 Message File Template:
     hello.md

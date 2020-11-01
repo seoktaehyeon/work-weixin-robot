@@ -7,8 +7,8 @@ import os
 
 URL = 'https://github.com/seoktaehyeon/work-weixin-robot'
 NAME = 'WorkWeixinRobot'
-VERSION = '0.2.1'
-DESCRIPTION = '企业微信机器人'
+VERSION = '1.0.0'
+DESCRIPTION = '企业微信群机器人'
 if os.path.exists('README.md'):
     with open('README.md', encoding='utf-8') as f:
         LONG_DESCRIPTION = f.read()
@@ -18,7 +18,7 @@ AUTHOR = 'Will'
 AUTHOR_EMAIL = 'v.stone@163.com'
 LICENSE = 'MIT'
 PLATFORMS = [
-    'linux',
+    'any',
 ]
 REQUIRES = [
     'requests',

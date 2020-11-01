@@ -129,7 +129,7 @@ class WWXRobot(object):
     @staticmethod
     def read_file(file_path):
         if os.path.exists(file_path):
-            with open(file_path, 'r') as f:
+            with open(file_path, 'r', encoding='utf-8') as f:
                 return f.read()
         else:
             return ""
@@ -172,7 +172,7 @@ def main():
             if _args.get('type') == 'image':
                 print('Message Content: \n%s' % _args.get('file'))
             else:
-                with open(_args.get('file'), 'r') as f:
+                with open(_args.get('file'), 'r', encoding='utf-8') as f:
                     print('Message Content:\n%s' % f.read())
         rbt.sender(msg_type=_args.get('type'), msg_data=_args.get('data'), msg_file_path=_args.get('file'))
     except getopt.GetoptError:

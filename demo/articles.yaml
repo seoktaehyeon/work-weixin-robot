@@ -1,0 +1,8 @@
+- title: '企业微信群机器人使用手册'
+  description: '如何配置群机器人?'
+  url: 'https://work.weixin.qq.com/help?person_id=1&doc_id=13376'
+  picurl: 'https://p.qpic.cn/pic_wework/3478722865/7b7dda774dab6fcebd7949815c85fb0f47681013914755be/0'
+- title: 'Python 操控企业微信机器人'
+  description: '不但可以 Python 脚本，还可以直接命令行执行'
+  url: 'https://pypi.org/project/WorkWeixinRobot'
+  picurl: 'https://www.python.org/static/img/python-logo.png'
